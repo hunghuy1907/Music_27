@@ -1,18 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screen.home.HomeActivity">
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/image_player"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_previous"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_25"
+        android:layout_margin="@dimen/dp_8"
+        android:background="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="@+id/image_player"
+        app:layout_constraintEnd_toStartOf="@+id/image_play" />
 
     <TextView
+        android:id="@+id/text_name_song"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Hello_World"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_marginStart="@dimen/dp_8"
+        android:textColor="@color/color_black"
+        app:layout_constraintBottom_toTopOf="@+id/text_singer"
+        app:layout_constraintStart_toEndOf="@+id/image_player" />
+
+    <ImageView
+        android:id="@+id/image_next"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_25"
+        android:layout_margin="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="@+id/image_player"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/next" />
+
+    <ImageView
+        android:id="@+id/image_player"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_8"
+        android:background="@drawable/ic_disc"
+        android:paddingLeft="@dimen/dp_8"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_music"
+        app:layout_constraintStart_toStartOf="@+id/navigation_music" />
+
+    <ImageView
+        android:id="@+id/image_play"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_25"
+        android:layout_margin="@dimen/dp_8"
+        app:layout_constraintBottom_toBottomOf="@+id/image_player"
+        app:layout_constraintEnd_toStartOf="@+id/image_next"
+        app:srcCompat="@drawable/play_button" />
+
+    <TextView
+        android:id="@+id/text_singer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:paddingLeft="@dimen/dp_8"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_music"
+        app:layout_constraintStart_toEndOf="@+id/image_player" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation_music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/color_purple_50"
+        app:itemIconTint="@color/color_black"
+        app:itemTextColor="@color/color_blue_grey_900"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/bottom_navigation" />
 
 </android.support.constraint.ConstraintLayout>

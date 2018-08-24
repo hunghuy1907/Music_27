@@ -3,4 +3,11 @@
     <dimen name="expected">4</dimen>
     <dimen name="actual_1">2</dimen>
     <dimen name="actual_2">2</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_20">20</dimen>
+    <dimen name="dp_17">17</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+
 </resources>
