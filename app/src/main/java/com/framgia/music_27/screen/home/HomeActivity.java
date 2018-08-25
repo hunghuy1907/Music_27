@@ -5,7 +5,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
-
 import com.framgia.music_27.R;
 import com.framgia.music_27.screen.base.BaseActivity;
 import com.framgia.music_27.screen.discover.DiscoverFragment;
