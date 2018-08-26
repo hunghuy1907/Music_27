@@ -6,6 +6,7 @@ import com.framgia.music_27.R;
 import com.framgia.music_27.screen.base.BaseFragment;
 
 public class SearchFragment extends BaseFragment {
+
     public static final String TAG = "SearchFragment";
 
     public static SearchFragment newInstance() {
