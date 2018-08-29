@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.framgia.music_27.R;
 import com.framgia.music_27.data.model.Genre;
-import com.framgia.music_27.data.model.Music;
+import com.framgia.music_27.data.model.Track;
 import java.util.List;
 
 public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHolder>{
@@ -60,8 +60,8 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHold
         }
 
         public void initMusicRecycleView(Context context, Genre genre) {
-            List<Music> musics = genre.getMusics();
-            MusicAdapter musicAdapter = new MusicAdapter(context, musics);
+            List<Track> tracks = genre.getTracks();
+            MusicAdapter musicAdapter = new MusicAdapter(context, tracks);
             mRecyclerMusic.setLayoutManager(new LinearLayoutManager(context,
                     LinearLayoutManager.HORIZONTAL, false));
             mRecyclerMusic.setAdapter(musicAdapter);

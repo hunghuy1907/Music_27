@@ -11,57 +11,57 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.framgia.music_27.R;
-import com.framgia.music_27.data.model.Music;
+import com.framgia.music_27.data.model.Track;
 import java.util.List;
 
-public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicHolder>{
+public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.TrackHolder>{
 
     private Context mContext;
-    private List<Music> mMusics;
+    private List<Track> mTracks;
     private LayoutInflater mInflater;
 
-    public MusicAdapter(Context context, List<Music> musics){
-        mMusics = musics;
+    public MusicAdapter(Context context, List<Track> Tracks){
+        mTracks = Tracks;
         mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public MusicHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TrackHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_music, parent, false);
-        return new MusicHolder(view);
+        return new TrackHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MusicHolder holder, int position) {
-        holder.fillData(mContext, mMusics.get(position));
+    public void onBindViewHolder(@NonNull TrackHolder holder, int position) {
+        holder.fillData(mContext, mTracks.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mMusics == null ? 0 : mMusics.size();
+        return mTracks == null ? 0 : mTracks.size();
     }
 
-    public static class MusicHolder extends RecyclerView.ViewHolder {
-        private ImageView mImageMusic;
+    public static class TrackHolder extends RecyclerView.ViewHolder {
+        private ImageView mImageTrack;
         private TextView mTextNameSong;
         private TextView mTextSinger;
 
-        public MusicHolder(View itemView) {
+        public TrackHolder(View itemView) {
             super(itemView);
             mTextNameSong = itemView.findViewById(R.id.text_name_song);
             mTextSinger = itemView.findViewById(R.id.text_singer);
-            mImageMusic = itemView.findViewById(R.id.image_music);
+            mImageTrack = itemView.findViewById(R.id.image_music);
         }
-        private void fillData(Context context, Music music) {
-            mTextNameSong.setText(music.getSong());
-            mTextSinger.setText(music.getSinger());
+        private void fillData(Context context, Track track) {
+            mTextNameSong.setText(track.getTitle());
+            mTextSinger.setText(track.getUser().getFullName());
             Glide.with(context)
-                    .load(music.getImagePath())
+                    .load(track.getArtworkUrl())
                     .apply(new RequestOptions().placeholder(R.drawable.ic_music_replace)
                                                 .error(R.drawable.ic_no_image))
-                    .into(mImageMusic);
+                    .into(mImageTrack);
         }
     }
 }
