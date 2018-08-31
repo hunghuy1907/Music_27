@@ -4,10 +4,10 @@ public class Constants {
 
     public class SoundClound{
         public static final String BASE_URL = "https://api-v2.soundcloud.com/";
-        public static final String PARAM_QUERY_KIND = "charts?kind=top";
+        public static final String PARAM_KIND = "charts?kind=top";
         public static final String PARAM_GENRE = "&genre=soundcloud";
         public static final String PARAM_CLIENT_ID = "?client_id=";
-        public static final String PARAM_TYPE = "%3Agenres%3Atype";
+        public static final String PARAM_TYPE = "%3Agenres%3A";
         public static final String PARAM_LIMIT = "&limit=";
     }
 
@@ -37,5 +37,14 @@ public class Constants {
         public static final String USER_ID = "user_id";
         public static final String USER_FULLNAME = "user_fullname";
         public static final String USER_NAME = "user_name";
+    }
+
+    public class Genre {
+        public static final String ALL_MUSIC = "all-music";
+        public static final String ALL_AUDIO = "all-audio";
+        public static final String ALTERNATIVE_ROCK = "alternative-rock";
+        public static final String AMBIENT = "ambient";
+        public static final String CLASSICAL = "classical";
+        public static final String COUNTRY = "country";
     }
 }

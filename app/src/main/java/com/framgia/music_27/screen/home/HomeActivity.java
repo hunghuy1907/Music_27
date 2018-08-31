@@ -1,17 +1,25 @@
 package com.framgia.music_27.screen.home;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import com.framgia.music_27.R;
+import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.screen.base.BaseActivity;
 import com.framgia.music_27.screen.discover.DiscoverFragment;
 import com.framgia.music_27.screen.library.LibraryFragment;
 import com.framgia.music_27.screen.search.SearchFragment;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+    public static final String EXTRA_GENRES = "com.framgia.music_27.EXTRA_GENRES";
     private BottomNavigationView mBottomNavigationView;
 
     @Override
@@ -82,5 +90,11 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
                 .beginTransaction()
                 .add(R.id.frame_main, fragment, tag)
                 .commit();
+    }
+
+    public static Intent getProfileIntent(Context context, List<Genre> genres) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.putParcelableArrayListExtra(EXTRA_GENRES, (ArrayList<? extends Parcelable>) genres);
+        return intent;
     }
 }

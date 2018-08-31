@@ -7,7 +7,6 @@ import com.framgia.music_27.R;
 import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.screen.base.BaseFragment;
 import com.framgia.music_27.screen.discover.adapter.GenresAdapter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverFragment extends BaseFragment implements DiscoverContract.View{
@@ -32,7 +31,6 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     @Override
     protected void initData(Bundle saveInstanceState) {
-        mGenres = new ArrayList<>();
         initRecycleGenres();
     }
 
