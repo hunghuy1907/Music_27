@@ -56,7 +56,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.TrackHolder>
         }
         private void fillData(Context context, Track track) {
             mTextNameSong.setText(track.getTitle());
-            mTextSinger.setText(track.getUser().getFullName());
+            mTextSinger.setText(track.getArtist());
             Glide.with(context)
                     .load(track.getArtworkUrl())
                     .apply(new RequestOptions().placeholder(R.drawable.ic_music_replace)

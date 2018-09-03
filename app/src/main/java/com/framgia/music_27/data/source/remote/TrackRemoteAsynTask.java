@@ -4,14 +4,14 @@ import android.os.AsyncTask;
 import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.data.model.Track;
 import com.framgia.music_27.data.source.CallBack;
-import java.io.File;
+import com.framgia.music_27.utils.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 
 public class TrackRemoteAsynTask extends AsyncTask<String, Void, List<Track>> {
-    private CallBack<List<Genre>> mCallBack;
+    private CallBack mCallBack;
     private Exception mException;
     private String mType;
     private List<Genre> mGenres;
@@ -24,20 +24,18 @@ public class TrackRemoteAsynTask extends AsyncTask<String, Void, List<Track>> {
 
     @Override
     protected List<Track> doInBackground(String... strings) {
+        List<Track> tracks = new ArrayList<>();
         try {
             String json = FetchDataFromAPI.getJSONStringFromURL(strings[0]);
-            return FetchDataFromAPI.getTrackFromJson(json);
+            tracks = FetchDataFromAPI.getTrackFromJson(json);
         } catch (IOException e) {
             e.printStackTrace();
             mException = e;
         } catch (JSONException e) {
             e.printStackTrace();
             mException = e;
-        } catch (Exception e) {
-            e.printStackTrace();
-            mException = e;
         }
-        return null;
+        return tracks;
     }
 
     @Override
@@ -47,7 +45,8 @@ public class TrackRemoteAsynTask extends AsyncTask<String, Void, List<Track>> {
             return;
         }
         if (mException == null){
-            Genre genre = new Genre(mType, tracks);
+            Genre genre = new Genre(mType.replace(Constants.Genre.MINUS, Constants.Genre.SPACE)
+                    .toUpperCase(), (ArrayList<Track>) tracks);
             mGenres.add(genre);
             mCallBack.getDataSuccess(mGenres);
         } else {

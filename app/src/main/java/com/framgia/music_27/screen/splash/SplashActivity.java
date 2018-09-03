@@ -7,6 +7,7 @@ import com.framgia.music_27.data.repository.TrackRepository;
 import com.framgia.music_27.data.source.remote.TrackRemoteDataResource;
 import com.framgia.music_27.screen.base.BaseActivity;
 import com.framgia.music_27.screen.home.HomeActivity;
+import com.framgia.music_27.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,23 +27,25 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        mPresenter = new SplashPresenter(TrackRepository
-                .getInstance(TrackRemoteDataResource.getInstance()));
+        mPresenter = new SplashPresenter(
+                TrackRepository.getInstance(TrackRemoteDataResource.getInstance()));
+        mPresenter.setView(this);
         loadDataByGenre();
     }
 
     @Override
     public void sendDataGenre(List<Genre> genres) {
-        startActivity(HomeActivity.getProfileIntent(this, genres));
+        startActivity(HomeActivity.getProfileIntent(this, new ArrayList<>(genres)));
+        finish();
     }
 
     public void loadDataByGenre() {
         List<Genre> genres = new ArrayList<>();
-        mPresenter.loadTrackByGenre(String.valueOf(R.string.title_all_music), genres);
-        mPresenter.loadTrackByGenre(String.valueOf(R.string.title_all_audio), genres);
-        mPresenter.loadTrackByGenre(String.valueOf(R.string.title_ambiant), genres);
-        mPresenter.loadTrackByGenre(String.valueOf(R.string.title_alternative_rock), genres);
-        mPresenter.loadTrackByGenre(String.valueOf(R.string.title_classical), genres);
-        mPresenter.loadTrackByGenre(String.valueOf(R.string.title_country), genres);
+        mPresenter.loadTrackByGenre(Constants.Genre.ALL_MUSIC, genres);
+        mPresenter.loadTrackByGenre(Constants.Genre.ALL_AUDIO, genres);
+        mPresenter.loadTrackByGenre(Constants.Genre.ALTERNATIVE_ROCK, genres);
+        mPresenter.loadTrackByGenre(Constants.Genre.AMBIENT, genres);
+        mPresenter.loadTrackByGenre(Constants.Genre.COUNTRY, genres);
+        mPresenter.loadTrackByGenre(Constants.Genre.CLASSICAL, genres);
     }
 }

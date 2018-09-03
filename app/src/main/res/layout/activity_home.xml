@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_blue_gray_100">
+    android:background="@color/color_white">
 
     <FrameLayout
         android:id="@+id/frame_main"
@@ -70,6 +70,13 @@
         android:paddingLeft="@dimen/dp_8"
         app:layout_constraintBottom_toTopOf="@+id/navigation_music"
         app:layout_constraintStart_toEndOf="@+id/image_player" />
+
+    <android.support.constraint.Group
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="image_previous,text_name_song,image_next,image_player,image_play,text_singer"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_music" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation_music"
