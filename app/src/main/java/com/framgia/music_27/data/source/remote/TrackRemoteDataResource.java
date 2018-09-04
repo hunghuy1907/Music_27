@@ -3,7 +3,6 @@ package com.framgia.music_27.data.source.remote;
 import android.support.annotation.NonNull;
 import com.framgia.music_27.BuildConfig;
 import com.framgia.music_27.data.model.Genre;
-import com.framgia.music_27.data.model.Track;
 import com.framgia.music_27.data.source.CallBack;
 import com.framgia.music_27.data.source.TrackDataSource;
 import com.framgia.music_27.utils.Constants;
@@ -36,6 +35,19 @@ public class TrackRemoteDataResource implements TrackDataSource.remoteDataSource
         new TrackRemoteAsynTask(callback, type, genres).execute(url);
     }
 
+    private void getGenreByTrackFromApi(String type, CallBack callBack) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(Constants.SoundClound.BASE_URL)
+                .append(Constants.SoundClound.PARAM_KIND)
+                .append(Constants.SoundClound.PARAM_GENRE)
+                .append(Constants.SoundClound.PARAM_TYPE)
+                .append(type)
+                .append(Constants.SoundClound.PARAM_CLIENT_ID)
+                .append(BuildConfig.API_KEY);
+        String url = stringBuilder.toString();
+        new GenreRemoteAsynTask(callBack, type).execute(url);
+    }
+
     @Override
     public void getTracksByGenre(String type, List<Genre> genres,
             @NonNull CallBack<List<Genre>> callback) {
@@ -43,7 +55,7 @@ public class TrackRemoteDataResource implements TrackDataSource.remoteDataSource
     }
 
     @Override
-    public void getGenres(String type, @NonNull CallBack<List<Track>> callBack) {
-
+    public void getGenres(String type, @NonNull CallBack<Genre> callBack) {
+        getGenreByTrackFromApi(type, callBack);
     }
 }

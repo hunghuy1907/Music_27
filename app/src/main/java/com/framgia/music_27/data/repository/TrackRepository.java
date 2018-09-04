@@ -2,7 +2,6 @@ package com.framgia.music_27.data.repository;
 
 import android.support.annotation.NonNull;
 import com.framgia.music_27.data.model.Genre;
-import com.framgia.music_27.data.model.Track;
 import com.framgia.music_27.data.source.CallBack;
 import com.framgia.music_27.data.source.TrackDataSource;
 import com.framgia.music_27.data.source.remote.TrackRemoteDataResource;
@@ -32,7 +31,7 @@ public class TrackRepository implements TrackDataSource.localDataSource,
     }
 
     @Override
-    public void getGenres(String type, @NonNull CallBack<List<Track>> callBack) {
-
+    public void getGenres(String type, @NonNull CallBack<Genre> callBack) {
+        mTrackRemoteDataResource.getGenres(type, callBack);
     }
 }
