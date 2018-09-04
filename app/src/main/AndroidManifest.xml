@@ -22,6 +22,8 @@
 
         <activity android:name=".screen.home.HomeActivity" />
 
+        <activity android:name=".screen.genre.GenreActivity" />
+
     </application>
 
 </manifest>
