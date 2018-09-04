@@ -2,26 +2,27 @@ package com.framgia.music_27.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.List;
+import java.util.ArrayList;
 
-public class Genre implements Parcelable{
+public class Genre implements Parcelable {
 
     private String mName;
-    private List<Track> mTracks;
+    private ArrayList<Track> mTracks;
 
-    public Genre(String name, List<Track> tracks) {
+    public Genre(String name, ArrayList<Track> tracks) {
         mName = name;
         mTracks = tracks;
+    }
+
+
+    private Genre(GenreBuilder genreBuilder) {
+        mName = genreBuilder.mName;
+        mTracks = genreBuilder.mTracks;
     }
 
     protected Genre(Parcel in) {
         mName = in.readString();
         mTracks = in.createTypedArrayList(Track.CREATOR);
-    }
-
-    private Genre(GenreBuider genreBuider) {
-        mName = genreBuider.mName;
-        mTracks = genreBuider.mTracks;
     }
 
     public static final Creator<Genre> CREATOR = new Creator<Genre>() {
@@ -44,11 +45,11 @@ public class Genre implements Parcelable{
         mName = name;
     }
 
-    public List<Track> getTracks() {
+    public ArrayList<Track> getTracks() {
         return mTracks;
     }
 
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(ArrayList<Track> tracks) {
         mTracks = tracks;
     }
 
@@ -63,16 +64,16 @@ public class Genre implements Parcelable{
         dest.writeTypedList(mTracks);
     }
 
-    public class GenreBuider {
+    public static class GenreBuilder {
         private String mName;
-        private List<Track> mTracks;
+        private ArrayList<Track> mTracks;
 
-        public GenreBuider name(String name) {
+        public GenreBuilder name(String name) {
             mName = name;
             return this;
         }
 
-        public GenreBuider tracks(List<Track> tracks) {
+        public GenreBuilder tracks(ArrayList<Track> tracks) {
             mTracks = tracks;
             return this;
         }

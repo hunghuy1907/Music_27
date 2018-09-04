@@ -7,10 +7,12 @@ import com.framgia.music_27.R;
 import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.screen.base.BaseFragment;
 import com.framgia.music_27.screen.discover.adapter.GenresAdapter;
+import java.util.ArrayList;
 import java.util.List;
 
-public class DiscoverFragment extends BaseFragment implements DiscoverContract.View{
+public class DiscoverFragment extends BaseFragment implements DiscoverContract.View {
 
+    public static final String ARGUMENT_GENRE = "ARGUMENT_GENRE";
     public static final String TAG = "DiscoverFragment";
     private RecyclerView mRecycleGenres;
     private List<Genre> mGenres;
@@ -31,13 +33,26 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     @Override
     protected void initData(Bundle saveInstanceState) {
+        mGenres = new ArrayList<>();
+        if (getArguments() != null) {
+            mGenres = getArguments().getParcelableArrayList(ARGUMENT_GENRE);
+        }
         initRecycleGenres();
     }
 
     private void initRecycleGenres() {
-        GenresAdapter genresAdapter = new GenresAdapter(getActivity(), mGenres);;
-        mRecycleGenres.setLayoutManager(new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL, false));
+        GenresAdapter genresAdapter = new GenresAdapter(getActivity(), mGenres);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false);
+        mRecycleGenres.setLayoutManager(linearLayoutManager);
         mRecycleGenres.setAdapter(genresAdapter);
+    }
+
+    public static DiscoverFragment newInstance(ArrayList<Genre> genres) {
+        DiscoverFragment fragment = new DiscoverFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(ARGUMENT_GENRE, genres);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }

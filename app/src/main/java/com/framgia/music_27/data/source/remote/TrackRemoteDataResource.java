@@ -19,22 +19,6 @@ public class TrackRemoteDataResource implements TrackDataSource.remoteDataSource
         return sInstance;
     }
 
-    @Override
-    public void getTracks(@NonNull CallBack<List<Track>> callback) {
-
-
-    }
-
-    @Override
-    public void getTracks(String genre,String type, @NonNull CallBack<List<Track>> callback) {
-
-    }
-
-    @Override
-    public void getTracksByGenre(String type,
-            @NonNull CallBack callback) {
-
-    }
 
     private void getdataFromApi(String type,  List<Genre> genres,
             @NonNull CallBack<List<Genre>> callback) {
@@ -46,7 +30,8 @@ public class TrackRemoteDataResource implements TrackDataSource.remoteDataSource
                 .append(type)
                 .append(Constants.SoundClound.PARAM_CLIENT_ID)
                 .append(BuildConfig.API_KEY)
-                .append(Constants.SoundClound.PARAM_LIMIT);
+                .append(Constants.SoundClound.PARAM_LIMIT)
+                .append(Constants.SoundClound.LIMIT);
         String url = stringBuilder.toString();
         new TrackRemoteAsynTask(callback, type, genres).execute(url);
     }
@@ -55,5 +40,10 @@ public class TrackRemoteDataResource implements TrackDataSource.remoteDataSource
     public void getTracksByGenre(String type, List<Genre> genres,
             @NonNull CallBack<List<Genre>> callback) {
         getdataFromApi(type, genres, callback);
+    }
+
+    @Override
+    public void getGenres(String type, @NonNull CallBack<List<Track>> callBack) {
+
     }
 }

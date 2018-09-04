@@ -2,12 +2,11 @@ package com.framgia.music_27.screen.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.os.Bundle;
-import android.view.MenuItem;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import com.framgia.music_27.R;
 import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.screen.base.BaseActivity;
@@ -15,11 +14,11 @@ import com.framgia.music_27.screen.discover.DiscoverFragment;
 import com.framgia.music_27.screen.library.LibraryFragment;
 import com.framgia.music_27.screen.search.SearchFragment;
 import java.util.ArrayList;
-import java.util.List;
 
-public class HomeActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends BaseActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
+    private static final String EXTRA_GENRE = "EXTRA_GENRE";
 
-    public static final String EXTRA_GENRES = "com.framgia.music_27.EXTRA_GENRES";
     private BottomNavigationView mBottomNavigationView;
 
     @Override
@@ -35,7 +34,8 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        addFragment(DiscoverFragment.newInstance(), DiscoverFragment.TAG);
+        ArrayList<Genre> genres = getIntent().getParcelableArrayListExtra(EXTRA_GENRE);
+        addFragment(DiscoverFragment.newInstance(genres), DiscoverFragment.TAG);
     }
 
     @Override
@@ -60,10 +60,7 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
     private void addFragment(String tag) {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
         if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .show(fragment)
-                    .commit();
+            getSupportFragmentManager().beginTransaction().show(fragment).commit();
             return;
         }
         addFragment(getFragment(tag), tag);
@@ -86,15 +83,12 @@ public class HomeActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     private void addFragment(Fragment fragment, String tag) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.frame_main, fragment, tag)
-                .commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, fragment, tag).commit();
     }
 
-    public static Intent getProfileIntent(Context context, List<Genre> genres) {
+    public static Intent getProfileIntent(Context context, ArrayList<Genre> genres) {
         Intent intent = new Intent(context, HomeActivity.class);
-        intent.putParcelableArrayListExtra(EXTRA_GENRES, (ArrayList<? extends Parcelable>) genres);
+        intent.putParcelableArrayListExtra(EXTRA_GENRE, genres);
         return intent;
     }
 }

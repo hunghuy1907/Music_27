@@ -3,10 +3,10 @@ package com.framgia.music_27.screen.splash;
 import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.data.repository.TrackRepository;
 import com.framgia.music_27.data.source.CallBack;
+import com.framgia.music_27.utils.Constants;
 import java.util.List;
 
 public class SplashPresenter implements SplashContract.Presenter {
-
     private TrackRepository mTrackRepository;
     private SplashContract.View mView;
 
@@ -30,11 +30,13 @@ public class SplashPresenter implements SplashContract.Presenter {
     }
 
     @Override
-    public void loadTrackByGenre(String type, List datas) {
+    public void loadTrackByGenre(final String type, List datas) {
         mTrackRepository.getTracksByGenre(type, datas, new CallBack<List<Genre>>() {
             @Override
             public void getDataSuccess(List<Genre> datas) {
-                mView.sendDataGenre(datas);
+                if (type.equals(Constants.Genre.CLASSICAL)) {
+                    mView.sendDataGenre(datas);
+                }
             }
 
             @Override
@@ -42,6 +44,5 @@ public class SplashPresenter implements SplashContract.Presenter {
 
             }
         });
-
     }
 }

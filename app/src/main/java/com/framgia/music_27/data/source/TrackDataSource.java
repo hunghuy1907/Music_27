@@ -9,16 +9,10 @@ public interface TrackDataSource {
 
     public interface remoteDataSource {
 
-        void getTracks(@NonNull CallBack<List<Track>> callback);
-
-        void getTracks(String genre, String type,
-                @NonNull CallBack<List<Track>> callback);
-
-        void getTracksByGenre(String type,
-                @NonNull CallBack<Genre> callback);
-
         void getTracksByGenre(String type, List<Genre> genres,
                 @NonNull CallBack<List<Genre>> callback);
+
+        void getGenres(String type, @NonNull CallBack<List<Track>> callBack);
     }
 
     public interface localDataSource {

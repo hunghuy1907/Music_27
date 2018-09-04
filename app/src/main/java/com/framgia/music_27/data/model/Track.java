@@ -3,48 +3,45 @@ package com.framgia.music_27.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.framgia.music_27.utils.Constants;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Track implements Parcelable {
 
     private int mId;
     private String mTitle;
-    private String mUri;
     private String mArtworkUrl;
     private int mDuration;
     private String mGenre;
     private boolean mDownloadable;
     private String mDownloadURL;
-    private User mUser;
+    private String mArtist;
 
-    protected Track(Parcel in) {
-        mId = in.readInt();
-        mTitle = in.readString();
-        mUri = in.readString();
-        mArtworkUrl = in.readString();
-        mDuration = in.readInt();
-        mGenre = in.readString();
-        mDownloadable = in.readByte() != 0;
-        mDownloadURL = in.readString();
-        mUser = in.readParcelable(User.class.getClassLoader());
+    public Track(int id, String title, String artworkUrl, int duration, String genre,
+            boolean downloadable, String downloadURL, String artist) {
+        mId = id;
+        mTitle = title;
+        mArtworkUrl = artworkUrl;
+        mDuration = duration;
+        mGenre = genre;
+        mDownloadable = downloadable;
+        mDownloadURL = downloadURL;
+        mArtist = artist;
     }
 
     private Track(TrackBuilder trackBuilder) {
         mId = trackBuilder.mId;
         mTitle = trackBuilder.mTitle;
-        mUri = trackBuilder.mUri;
         mArtworkUrl = trackBuilder.mArtworkUrl;
         mDuration = trackBuilder.mDuration;
         mGenre = trackBuilder.mGenre;
         mDownloadable = trackBuilder.mDownloadable;
         mDownloadURL = trackBuilder.mDownloadUrl;
-        mUser = trackBuilder.mUser;
+        mArtist = trackBuilder.mArtist;
     }
-
-    public Track(JSONObject jsonObject) throws Exception {
+    public Track(JSONObject jsonObject) throws JSONException {
         mId = jsonObject.getInt(Constants.JsonTrackKey.ID);
         mTitle = jsonObject.getString(Constants.JsonTrackKey.TITLE);
-        mUri = jsonObject.getString(Constants.JsonTrackKey.URI);
         mArtworkUrl = jsonObject.getString(Constants.JsonTrackKey.ARTWORK_URL);
         mDuration = jsonObject.getInt(Constants.JsonTrackKey.DURATION);
         mGenre = jsonObject.getString(Constants.JsonTrackKey.GENRE);
@@ -52,7 +49,19 @@ public class Track implements Parcelable {
         if (mDownloadable) {
             mDownloadURL = jsonObject.getString(Constants.JsonTrackKey.DOWNLOAD_URL);
         }
-        mUser = new User(jsonObject.getJSONObject(Constants.JsonUserKey.USER_FULLNAME));
+        JSONObject user = jsonObject.getJSONObject(Constants.JsonTrackKey.USER);
+        mArtist = user.getString(Constants.JsonUserKey.USER_FULLNAME);
+    }
+
+    protected Track(Parcel in) {
+        mId = in.readInt();
+        mTitle = in.readString();
+        mArtworkUrl = in.readString();
+        mDuration = in.readInt();
+        mGenre = in.readString();
+        mDownloadable = in.readByte() != 0;
+        mDownloadURL = in.readString();
+        mArtist = in.readString();
     }
 
     public static final Creator<Track> CREATOR = new Creator<Track>() {
@@ -67,34 +76,41 @@ public class Track implements Parcelable {
         }
     };
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mArtworkUrl);
+        dest.writeInt(mDuration);
+        dest.writeString(mGenre);
+        dest.writeByte((byte) (mDownloadable ? 1 : 0));
+        dest.writeString(mDownloadURL);
+        dest.writeString(mArtist);
+    }
+
     public static class TrackBuilder{
         private int mId;
         private String mTitle;
-        private String mUri;
         private String mArtworkUrl;
         private int mDuration;
         private String mGenre;
         private boolean mDownloadable;
         private String mDownloadUrl;
-        private User mUser;
+        private String mArtist;
+
 
         public TrackBuilder id (int id) {
             mId = id;
             return this;
         }
 
-        public TrackBuilder user (User user) {
-            mUser = user;
-            return this;
-        }
-
         public TrackBuilder title (String title) {
             mTitle = title;
-            return this;
-        }
-
-        public TrackBuilder url (String url) {
-            mUri = url;
             return this;
         }
 
@@ -123,28 +139,14 @@ public class Track implements Parcelable {
             return this;
         }
 
+        public TrackBuilder artist (String artist) {
+            mArtist = artist;
+            return this;
+        }
+
         public Track create() {
             return new Track(this);
         }
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mId);
-        dest.writeString(mTitle);
-        dest.writeString(mArtworkUrl);
-        dest.writeString(mUri);
-        dest.writeString(mArtworkUrl);
-        dest.writeInt(mDuration);
-        dest.writeString(mGenre);
-        dest.writeByte((byte) (mDownloadable ? 1 : 0));
-        dest.writeString(mDownloadURL);
-        dest.writeParcelable(mUser, flags);
     }
 
     public int getId() {
@@ -161,14 +163,6 @@ public class Track implements Parcelable {
 
     public void setTitle(String title) {
         mTitle = title;
-    }
-
-    public String getUri() {
-        return mUri;
-    }
-
-    public void setUri(String uri) {
-        mUri = uri;
     }
 
     public String getArtworkUrl() {
@@ -211,11 +205,11 @@ public class Track implements Parcelable {
         mDownloadURL = downloadURL;
     }
 
-    public User getUser() {
-        return mUser;
+    public String getArtist() {
+        return mArtist;
     }
 
-    public void setUser(User user) {
-        mUser = user;
+    public void setArtist(String artist) {
+        mArtist = artist;
     }
 }
