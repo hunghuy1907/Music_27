@@ -12,7 +12,7 @@ public interface TrackDataSource {
         void getTracksByGenre(String type, List<Genre> genres,
                 @NonNull CallBack<List<Genre>> callback);
 
-        void getGenres(String type, @NonNull CallBack<List<Track>> callBack);
+        void getGenres(String type, @NonNull CallBack<Genre> callBack);
     }
 
     public interface localDataSource {

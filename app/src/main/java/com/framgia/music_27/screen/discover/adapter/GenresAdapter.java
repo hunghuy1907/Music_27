@@ -13,15 +13,17 @@ import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.data.model.Track;
 import java.util.List;
 
-public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHolder>{
+public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHolder> {
 
     private Context mContext;
     private List<Genre> mGenres;
     private LayoutInflater mInflater;
+    private OnClickItem mOnClickItem;
 
-    public GenresAdapter(Context context, List<Genre> genres) {
+    public GenresAdapter(Context context, List<Genre> genres, OnClickItem onClickItem) {
         mGenres = genres;
         mContext = context;
+        mOnClickItem = onClickItem;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -33,8 +35,8 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GenresHolder holder, int position) {
-        holder.fillData(mContext, mGenres.get(position));
+    public void onBindViewHolder(@NonNull final GenresHolder holder, int position) {
+        holder.fillData(mContext, mGenres.get(position), mOnClickItem);
     }
 
     @Override
@@ -42,29 +44,49 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHold
         return mGenres == null ? 0 : mGenres.size();
     }
 
-    public static class GenresHolder extends RecyclerView.ViewHolder {
-        private TextView mTextSeeAll;
+    public static class GenresHolder extends RecyclerView.ViewHolder
+            implements MusicAdapter.OnClickMusic, View.OnClickListener {
         private TextView mTextNameGenres;
         private RecyclerView mRecyclerMusic;
+        private OnClickItem mOnClickItem;
+        private TextView mTextSeeAll;
 
         public GenresHolder(View itemView) {
             super(itemView);
             mTextNameGenres = itemView.findViewById(R.id.text_genres);
             mTextSeeAll = itemView.findViewById(R.id.text_see_all);
             mRecyclerMusic = itemView.findViewById(R.id.recycle_music);
+            mTextSeeAll.setOnClickListener(this);
         }
 
-        public void fillData(Context context, Genre genre) {
+        public void fillData(Context context, Genre genre, OnClickItem onClickItem) {
+            mOnClickItem = onClickItem;
             mTextNameGenres.setText(genre.getName());
             initMusicRecycleView(context, genre);
         }
 
         public void initMusicRecycleView(Context context, Genre genre) {
             List<Track> tracks = genre.getTracks();
-            MusicAdapter musicAdapter = new MusicAdapter(context, tracks);
-            mRecyclerMusic.setLayoutManager(new LinearLayoutManager(context,
-                    LinearLayoutManager.HORIZONTAL, false));
+            MusicAdapter musicAdapter = new MusicAdapter(context, tracks, this);
+            mRecyclerMusic.setLayoutManager(
+                    new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             mRecyclerMusic.setAdapter(musicAdapter);
+        }
+
+        @Override
+        public void clickMusic(int position) {
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.text_see_all:
+                    mOnClickItem.clickItem(getAdapterPosition());
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
