@@ -19,11 +19,14 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHold
     private List<Genre> mGenres;
     private LayoutInflater mInflater;
     private OnClickItem mOnClickItem;
+    private MusicAdapter.OnClickItemMusic mOnClickItemMusic;
 
-    public GenresAdapter(Context context, List<Genre> genres, OnClickItem onClickItem) {
+    public GenresAdapter(Context context, List<Genre> genres, OnClickItem onClickItem,
+            MusicAdapter.OnClickItemMusic onClickItemMusic) {
         mGenres = genres;
         mContext = context;
         mOnClickItem = onClickItem;
+        mOnClickItemMusic = onClickItemMusic;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -44,8 +47,8 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHold
         return mGenres == null ? 0 : mGenres.size();
     }
 
-    public static class GenresHolder extends RecyclerView.ViewHolder
-            implements MusicAdapter.OnClickMusic, View.OnClickListener {
+    public class GenresHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
         private TextView mTextNameGenres;
         private RecyclerView mRecyclerMusic;
         private OnClickItem mOnClickItem;
@@ -67,16 +70,12 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.GenresHold
 
         public void initMusicRecycleView(Context context, Genre genre) {
             List<Track> tracks = genre.getTracks();
-            MusicAdapter musicAdapter = new MusicAdapter(context, tracks, this);
+            MusicAdapter musicAdapter = new MusicAdapter(context, tracks, mOnClickItemMusic);
             mRecyclerMusic.setLayoutManager(
                     new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
             mRecyclerMusic.setAdapter(musicAdapter);
         }
 
-        @Override
-        public void clickMusic(int position) {
-
-        }
 
         @Override
         public void onClick(View v) {

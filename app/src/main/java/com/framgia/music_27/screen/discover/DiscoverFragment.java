@@ -5,14 +5,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.framgia.music_27.R;
 import com.framgia.music_27.data.model.Genre;
+import com.framgia.music_27.data.model.Track;
 import com.framgia.music_27.screen.base.BaseFragment;
 import com.framgia.music_27.screen.discover.adapter.GenresAdapter;
+import com.framgia.music_27.screen.discover.adapter.MusicAdapter;
 import com.framgia.music_27.screen.discover.adapter.OnClickItem;
 import com.framgia.music_27.screen.genre.GenreActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiscoverFragment extends BaseFragment implements DiscoverContract.View , OnClickItem{
+public class DiscoverFragment extends BaseFragment implements DiscoverContract.View , OnClickItem,
+        MusicAdapter.OnClickItemMusic{
 
     public static final String ARGUMENT_GENRE = "ARGUMENT_GENRE";
     public static final String TAG = "DiscoverFragment";
@@ -43,7 +46,8 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
     }
 
     private void initRecycleGenres() {
-        GenresAdapter genresAdapter = new GenresAdapter(getActivity(), mGenres, this);
+        GenresAdapter genresAdapter = new GenresAdapter(getActivity(), mGenres, this, this
+        );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
         mRecycleGenres.setLayoutManager(linearLayoutManager);
@@ -62,5 +66,10 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
     public void clickItem(int position) {
         getActivity().startActivity(GenreActivity.getIntentProfile(getActivity(),
                 mGenres.get(position).getName()));
+    }
+
+    @Override
+    public void clickItemMusic(int position, List<Track> tracks) {
+
     }
 }

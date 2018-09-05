@@ -23,8 +23,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.TrackHolder>
     private OnClickItemMusic mOnClickItemMusic;
 
     public MusicAdapter(Context context, List<Track> Tracks, OnClickItemMusic OnClickItemMusic) {
-        mTracks = Tracks;
         mContext = context;
+        mTracks = Tracks;
         mOnClickItemMusic = OnClickItemMusic;
         mInflater = LayoutInflater.from(context);
     }
@@ -46,7 +46,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.TrackHolder>
         return mTracks == null ? 0 : mTracks.size();
     }
 
-    public static class TrackHolder extends RecyclerView.ViewHolder
+    public class TrackHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private ImageView mImageTrack;
         private TextView mTextNameSong;
@@ -78,7 +78,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.TrackHolder>
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.layout_item_music:
-                    mOnClickItemMusic.clickItemMusic(getAdapterPosition());
+                    mOnClickItemMusic.clickItemMusic(getAdapterPosition(), mTracks);
                     break;
                 default:
                     break;
@@ -88,6 +88,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.TrackHolder>
     }
 
     public interface OnClickItemMusic{
-        void clickItemMusic(int position);
+        void clickItemMusic(int position,List<Track> tracks);
     }
 }
