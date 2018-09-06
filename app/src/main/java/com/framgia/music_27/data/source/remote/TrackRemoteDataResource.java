@@ -48,6 +48,16 @@ public class TrackRemoteDataResource implements TrackDataSource.remoteDataSource
         new GenreRemoteAsynTask(callBack, type).execute(url);
     }
 
+    public static String getStreamUrl(int id) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(Constants.Stream.STREAM_URL)
+                .append(String.valueOf(id))
+                .append(Constants.Stream.STREAM)
+                .append(Constants.Stream.STREAM_CLIENT_ID)
+                .append(BuildConfig.API_KEY);
+        return stringBuilder.toString();
+    }
+
     @Override
     public void getTracksByGenre(String type, List<Genre> genres,
             @NonNull CallBack<List<Genre>> callback) {

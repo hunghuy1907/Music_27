@@ -11,6 +11,8 @@ import com.framgia.music_27.screen.discover.adapter.GenresAdapter;
 import com.framgia.music_27.screen.discover.adapter.MusicAdapter;
 import com.framgia.music_27.screen.discover.adapter.OnClickItem;
 import com.framgia.music_27.screen.genre.GenreActivity;
+import com.framgia.music_27.screen.player.PlayerActivity;
+import com.framgia.music_27.service.MusicService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     public static final String ARGUMENT_GENRE = "ARGUMENT_GENRE";
     public static final String TAG = "DiscoverFragment";
+
     private RecyclerView mRecycleGenres;
     private List<Genre> mGenres;
 
@@ -70,6 +73,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     @Override
     public void clickItemMusic(int position, List<Track> tracks) {
-
+        getActivity().startService(MusicService.getIntentService(getActivity(), tracks, position));
+        getActivity().startActivity(PlayerActivity.getIntentPlayerActivity(getActivity()));
     }
 }

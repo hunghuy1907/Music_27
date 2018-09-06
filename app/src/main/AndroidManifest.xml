@@ -24,6 +24,10 @@
 
         <activity android:name=".screen.genre.GenreActivity" />
 
+        <activity android:name=".screen.player.PlayerActivity" />
+
+        <service android:name=".service.MusicService" />
+
     </application>
 
 </manifest>

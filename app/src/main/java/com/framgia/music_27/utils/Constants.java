@@ -52,4 +52,12 @@ public class Constants {
         public static final String SPACE = " ";
         public static final int MAX_SIZE_GENRES = 6;
     }
+
+    public class Stream {
+        public static final String STREAM_URL = "http://api.soundcloud.com/tracks/";
+        public static final String STREAM = "/stream";
+        public static final String STREAM_CLIENT_ID = "?client_id=";
+        public static final int LEFT_VOLUME = 100;
+        public static final int RIGHT_VOLUME = 100;
+    }
 }
