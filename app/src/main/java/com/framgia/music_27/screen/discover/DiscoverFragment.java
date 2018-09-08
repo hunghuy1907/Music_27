@@ -16,6 +16,8 @@ import com.framgia.music_27.service.MusicService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.framgia.music_27.utils.Constants.Player.TYPE_LOCAL;
+
 public class DiscoverFragment extends BaseFragment implements DiscoverContract.View , OnClickItem,
         MusicAdapter.OnClickItemMusic{
 
@@ -73,7 +75,7 @@ public class DiscoverFragment extends BaseFragment implements DiscoverContract.V
 
     @Override
     public void clickItemMusic(int position, List<Track> tracks) {
-        getActivity().startService(MusicService.getIntentService(getActivity(), tracks, position));
+        getActivity().startService(MusicService.getIntentService(getActivity(), tracks, position, TYPE_LOCAL));
         getActivity().startActivity(PlayerActivity.getIntentPlayerActivity(getActivity()));
     }
 }

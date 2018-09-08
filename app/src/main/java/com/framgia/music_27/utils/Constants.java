@@ -54,10 +54,31 @@ public class Constants {
     }
 
     public class Stream {
-        public static final String STREAM_URL = "http://api.soundcloud.com/tracks/";
+        public static final String STREAM_URL = "https://api.soundcloud.com/tracks/";
         public static final String STREAM = "/stream";
         public static final String STREAM_CLIENT_ID = "?client_id=";
         public static final int LEFT_VOLUME = 100;
         public static final int RIGHT_VOLUME = 100;
+    }
+
+    public class Player {
+        public static final int NO_LOOP = 0;
+        public static final int LOOP_ONE = 1;
+        public static final int LOOP_FOREVER = 2;
+        public static final int DELAY = 1000;
+        public static final int NOTIFICATION_ID = 100;
+        public static final String FILE_DIR = "file://\" + \"/sdcard/";
+        public static final String MP3_FORMAT = ".mp3";
+        public static final String MP3_FORMA2 = ".MP3";
+        public static final int REQUEST_PERMISSION_CODE = 10;
+        public static final int TYPE_REMOTE = 0;
+        public static final int TYPE_LOCAL = 1;
+
+        public static final String TABLE_NAME = "SongOfflineData";
+        public static final String DATABASE_LOCAL_MUSIC = "DATABASE_LOCAL_MUSIC.sqlite";
+        public static final int DATABASE_VERSION = 1;
+        public static final String DES_FILE_DOWNLOAD = "SoundClound";
+        public static final String TYPE_INTEGER = "type_integer";
+        public static final String TYPE_LIST = "type_list";
     }
 }

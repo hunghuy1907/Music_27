@@ -1,8 +1,12 @@
 package com.framgia.music_27.service;
 
-import android.widget.Button;
+import com.framgia.music_27.data.model.Track;
 
 public interface MediaListener {
+    void start();
+
+    boolean isPlaying();
+
     void play(String url);
 
     void stop();
@@ -20,4 +24,12 @@ public interface MediaListener {
     void loop();
 
     void shuffle();
+
+    int getCurrentDuration();
+
+    Track getCurrentTrack();
+
+    int getDuration();
+
+    void download();
 }
