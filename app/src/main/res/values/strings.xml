@@ -2,4 +2,9 @@
     <string name="app_name">Music_27</string>
     <string name="title_home">HOME</string>
     <string name="title_see_all">See all>></string>
+    <string name="title_no_artist">&#60;No Artist&#62;</string>
+    <string name="title_downloaded">This song is downloaded</string>
+    <string name="text_dowloading">Downloading ...</string>
+    <string name="text_download">Download: </string>
+    <string name="text_current_duration">0:00</string>
 </resources>

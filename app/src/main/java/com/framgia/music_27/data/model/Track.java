@@ -2,6 +2,7 @@ package com.framgia.music_27.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.music_27.R;
 import com.framgia.music_27.utils.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +17,21 @@ public class Track implements Parcelable {
     private boolean mDownloadable;
     private String mDownloadURL;
     private String mArtist;
+    private boolean mIsDownloaded;
+    private String mUrlLocal;
+
+    public Track(String title, String artist, String url) {
+        mTitle = title;
+        mArtist = artist;
+        mUrlLocal = url;
+    }
+
+    public Track(String url, String artist, String title, int duration) {
+        mTitle = title;
+        mArtist = artist;
+        mUrlLocal = url;
+        mDuration = duration;
+    }
 
     private Track(TrackBuilder trackBuilder) {
         mId = trackBuilder.mId;
@@ -48,8 +64,10 @@ public class Track implements Parcelable {
         mDuration = in.readInt();
         mGenre = in.readString();
         mDownloadable = in.readByte() != 0;
+        mIsDownloaded = in.readByte() != 0;
         mDownloadURL = in.readString();
         mArtist = in.readString();
+        mUrlLocal = in.readString();
     }
 
     public static final Creator<Track> CREATOR = new Creator<Track>() {
@@ -77,8 +95,10 @@ public class Track implements Parcelable {
         dest.writeInt(mDuration);
         dest.writeString(mGenre);
         dest.writeByte((byte) (mDownloadable ? 1 : 0));
+        dest.writeByte((byte) (mIsDownloaded ? 1 : 0));
         dest.writeString(mDownloadURL);
         dest.writeString(mArtist);
+        dest.writeString(mUrlLocal);
     }
 
     public static class TrackBuilder{
@@ -88,6 +108,7 @@ public class Track implements Parcelable {
         private int mDuration;
         private String mGenre;
         private boolean mDownloadable;
+        private boolean mIsDownloaded;
         private String mDownloadUrl;
         private String mArtist;
 
@@ -119,6 +140,11 @@ public class Track implements Parcelable {
 
         public TrackBuilder downloadable (boolean downloadable) {
             mDownloadable = downloadable;
+            return this;
+        }
+
+        public TrackBuilder isDownloaded (boolean downloaded) {
+            mIsDownloaded = downloaded;
             return this;
         }
 
@@ -194,10 +220,29 @@ public class Track implements Parcelable {
     }
 
     public String getArtist() {
+        if (mArtist.isEmpty()) {
+            return String.valueOf(R.string.title_no_artist);
+        }
         return mArtist;
     }
 
     public void setArtist(String artist) {
         mArtist = artist;
+    }
+
+    public boolean isDownloaded() {
+        return mIsDownloaded;
+    }
+
+    public void setDownloaded(boolean downloaded) {
+        mIsDownloaded = downloaded;
+    }
+
+    public String getUrlLocal() {
+        return mUrlLocal;
+    }
+
+    public void setUrlLocal(String urlLocal) {
+        mUrlLocal = urlLocal;
     }
 }
