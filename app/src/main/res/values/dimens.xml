@@ -31,6 +31,7 @@
     <dimen name="dp_180">180dp</dimen>
     <dimen name="dp_230">230dp</dimen>
     <dimen name="dp_320">320dp</dimen>
+    <dimen name="dp_300">300dp</dimen>
     <dimen name="dp_190">190dp</dimen>
 
 </resources>

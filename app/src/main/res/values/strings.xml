@@ -7,4 +7,12 @@
     <string name="text_dowloading">Downloading ...</string>
     <string name="text_download">Download: </string>
     <string name="text_current_duration">0:00</string>
+    <string name="title_library">LIBRARY</string>
+    <string name="text_favorite">Favorite</string>
+    <string name="text_playlist">PlayList</string>
+    <string name="text_download_list">Download</string>
+    <string name="favorite">Favorite</string>
+    <string name="download">Download</string>
+    <string name="playlist">PlayList</string>
+    <string name="my_music_file">My music file</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.framgia.music_27.data.source;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import com.framgia.music_27.data.model.Genre;
 import com.framgia.music_27.data.model.Track;
@@ -16,6 +17,11 @@ public interface TrackDataSource {
     }
 
     public interface localDataSource {
+        void getTrack(CallBack<List<Track>> callBack);
+
+        void getTotalLocalMusic(CallBack<Integer> callBack);
+
+        void getDownloadTrack(String type, CallBack callBack);
 
     }
 }
